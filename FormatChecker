@@ -1,0 +1,83 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class FormatChecker {
+
+	public static void main(String[] args) throws IOException {
+
+
+		System.out.println("Input file to validate: ");
+
+		//read user input
+		BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+		String input = inputReader.readLine();
+		System.out.println(input);
+		inputReader.close();
+
+		Scanner inputScan = new Scanner(input);
+		ArrayList<String> fileNames = new ArrayList<>();
+		
+		// while loop read command line inputs and put it in fileNames arrayList
+		while(inputScan.hasNext()) {
+
+			String fileName = inputScan.next();
+
+			fileNames.add(fileName);
+			fileNames.trimToSize();
+
+			for (int x=0; x<fileNames.size(); x++) {
+				try {
+
+					//read file and build grid, if invalid an exception is thrown
+					File file = new File("src/InputFiles/" + fileName);
+					@SuppressWarnings("resource")
+					Scanner fileScan = new Scanner(file);
+					int fileRow = fileScan.nextInt();
+					int fileCol = fileScan.nextInt();
+					double[][] grid = new double [fileRow][fileCol];
+					for (int r = 0; r < fileRow; r++) {
+						for( int c = 0; c < fileCol; c++) {
+							double[][] fileGrid = new double [r][c];
+						}
+					}
+					System.out.println(fileName + "\n" + "VALID");
+
+				} 
+				catch(FileNotFoundException e) {
+
+					System.out.println(fileName + "\n" + e + "\n" +"INVALID");
+
+				}
+				catch(InputMismatchException e){
+
+					System.out.println(fileName + "\n" + e + "\n" + "INVALID" + " for input "  );
+				}
+
+				catch(IndexOutOfBoundsException e) {
+
+					System.out.println(fileName + "\n"  + e + "\n" + "INVALID");
+				}
+				catch(NumberFormatException e) {
+					System.out.println(fileName + "\n"  + e + "\n" + "INVALID");
+				}
+				catch(NullPointerException e) {
+					System.out.println(fileName + "\n"  + e + "\n" + "INVALID");
+				}
+
+			}
+		}
+		System.out.println(fileNames);
+
+
+
+	}
+}
+
+
+
