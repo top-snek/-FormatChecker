@@ -55,29 +55,29 @@ public class FormatChecker {
 							continue;
 						}
 						else {
-							
+
 							double[][] fileGrid = new double[fileRow][fileCol];
 
 
 							for (int r = 0; r < fileRow; r++) {
 								String line = fileScan.nextLine();
 								String[] lineInfo = line.split(" ");
-								
-								
-								
+
+
+
 								for( int c = 0; c < fileCol; c++) {
 
 									fileGrid[r][c] = Double.parseDouble(lineInfo[c]);
-							
+
 								}
-								
-								if(lineInfo.length != fileRow) {
+
+								if(lineInfo.length != fileCol) {
 									System.out.println(s +"\n" +"INVALID");
-								
+									break;
 								}
-							
-		
-						}
+
+
+							}
 							System.out.println(s + "\n" + "VALID");
 
 						}
