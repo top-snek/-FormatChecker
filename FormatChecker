@@ -1,0 +1,105 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class FormatChecker {
+
+	public static void main(String[] args) throws IOException {
+
+
+		System.out.println("Input file to validate: ");
+
+		//read user input
+		BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+		String input = inputReader.readLine();
+		inputReader.close();
+
+
+		Scanner inputScan = new Scanner(input);
+		ArrayList<String> fileNames = new ArrayList<>();
+
+		// while loop read command line inputs and put it in fileNames arrayList
+		while(inputScan.hasNext()) {
+
+			String fileName = inputScan.next();
+
+			fileNames.add(fileName);
+			fileNames.trimToSize();
+		}
+		for (String s : fileNames) {
+			try {
+
+				//read file and build grid, if invalid an exception is thrown
+				File file = new File("src/InputFiles/" + s);
+
+				@SuppressWarnings("resource")
+				Scanner fileScan = new Scanner(file);
+
+				if(fileScan.hasNextInt()) {
+					int fileRow = fileScan.nextInt();
+
+
+					if(fileScan.hasNextInt()) {
+						int fileCol = fileScan.nextInt();
+						String firstLineCheck = fileScan.nextLine();
+						int firstLineLength = firstLineCheck.length();
+						// firstLineCheck makes sure the first line contains only 2 values, if more than 2, file is invalid
+						if(firstLineLength != 0) {
+
+							System.out.println(s +"\n" +"INVALID");
+							continue;
+						}
+						else {
+							String str = "";
+							double[][] fileGrid = new double[fileRow][fileCol];
+
+
+							for (int r = 0; r < fileRow; r++) {
+								String line = fileScan.nextLine();
+								String[] lineInfo = line.split(" ");
+								
+								for( int c = 0; c < fileCol; c++) {
+
+									fileGrid[fileRow][fileCol] = Double.parseDouble(lineInfo[c]);
+									str += fileGrid[r][c]+ " ";
+
+
+
+								}str += "\n";
+							}
+							System.out.println(str);
+							System.out.println(s + "\n" + "VALID");
+
+						}
+					}	
+				}
+			}
+
+			catch(FileNotFoundException e) {
+				System.out.println(s + "\n" + e + "\n" + "INVALID");
+			}
+			catch(InputMismatchException e){
+				System.out.println(s + "\n" + e + "\n" + "INVALID");
+			}
+			catch(IndexOutOfBoundsException e) {
+				System.out.println(s + "\n" + e + "\n" + "INVALID");
+			}
+			catch(NumberFormatException e) {
+				System.out.println(s + "\n" + e + "\n" + "INVALID");
+			}
+			catch(NullPointerException e) {
+				System.out.println(s + "\n" + e + "\n" + "INVALID");
+			}
+		}
+	}
+}
+
+
+
+
+
