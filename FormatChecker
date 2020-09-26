@@ -6,7 +6,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+/**
+ * Homework 3: FormatChecker
+ *
+ * @author Ethan Hardy
+ * @version Fall 2020
+ *
+ */
 public class FormatChecker {
 
 	public static void main(String[] args) throws IOException {
@@ -19,8 +25,10 @@ public class FormatChecker {
 		String input = inputReader.readLine();
 		inputReader.close();
 
-
+		// parse through the user input to pull file names
 		Scanner inputScan = new Scanner(input);
+
+		// make new array of file names
 		ArrayList<String> fileNames = new ArrayList<>();
 
 		// while loop read command line inputs and put it in fileNames arrayList
@@ -37,54 +45,64 @@ public class FormatChecker {
 				//read file and build grid, if invalid an exception is thrown
 				File file = new File("src/InputFiles/" + s);
 
+				//scan the file
 				@SuppressWarnings("resource")
 				Scanner fileScan = new Scanner(file);
 
+				// checks if the first 2 values are ints
 				if(fileScan.hasNextInt()) {
 					int fileRow = fileScan.nextInt();
-
-
-					if(fileScan.hasNextInt()) {
+					if(fileScan.hasNextInt() ) {
 						int fileCol = fileScan.nextInt();
+
+						// firstLineCheck makes sure the first line contains only 2 values, if more than 2, file is invalid
 						String firstLineCheck = fileScan.nextLine();
 						int firstLineLength = firstLineCheck.length();
-						// firstLineCheck makes sure the first line contains only 2 values, if more than 2, file is invalid
-						if(firstLineLength != 0) {
+						if(firstLineLength != 0 ) {
 
 							System.out.println(s +"\n" +"INVALID");
 							continue;
 						}
+
 						else {
 
+							// make the new grid from the rows and col data pulled from the file
 							double[][] fileGrid = new double[fileRow][fileCol];
 
-
+							// pulls the first line of data and then split it up, and puts it into the String[] array
 							for (int r = 0; r < fileRow; r++) {
 								String line = fileScan.nextLine();
 								String[] lineInfo = line.split(" ");
 
 
-
 								for( int c = 0; c < fileCol; c++) {
 
+									//parses the doubles in the lineInfo array and puts it into the fileGrid array
 									fileGrid[r][c] = Double.parseDouble(lineInfo[c]);
 
 								}
 
+								// checks to make sure the rows match the fileRow
 								if(lineInfo.length != fileCol) {
 									System.out.println(s +"\n" +"INVALID");
 									break;
 								}
-
-
 							}
 							System.out.println(s + "\n" + "VALID");
-
 						}
 					}	
+					else {
+						System.out.println(s +"\n" +"INVALID");
+
+					}
+				}
+				else {
+					System.out.println(s +"\n" +"INVALID");
+
 				}
 			}
 
+			// exceptions that may possibly be thrown from invalid files
 			catch(FileNotFoundException e) {
 				System.out.println(s + "\n" + e + "\n" + "INVALID");
 			}
