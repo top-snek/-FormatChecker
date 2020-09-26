@@ -88,7 +88,12 @@ public class FormatChecker {
 									break;
 								}
 							}
-							System.out.println(s + "\n" + "VALID");
+							if(fileScan.hasNextLine()) {
+								System.out.println(s +"\n" +"INVALID");
+							}
+							
+							else	{System.out.println(s + "\n" + "VALID");
+							}
 						}
 					}	
 					else {
