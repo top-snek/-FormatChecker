@@ -65,7 +65,7 @@ public class FormatChecker {
 								
 								for( int c = 0; c < fileCol; c++) {
 
-									fileGrid[fileRow][fileCol] = Double.parseDouble(lineInfo[c]);
+									fileGrid[r][c] = Double.parseDouble(lineInfo[c]);
 									str += fileGrid[r][c]+ " ";
 
 
