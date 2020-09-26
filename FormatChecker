@@ -55,7 +55,7 @@ public class FormatChecker {
 							continue;
 						}
 						else {
-							String str = "";
+							
 							double[][] fileGrid = new double[fileRow][fileCol];
 
 
@@ -63,16 +63,21 @@ public class FormatChecker {
 								String line = fileScan.nextLine();
 								String[] lineInfo = line.split(" ");
 								
+								
+								
 								for( int c = 0; c < fileCol; c++) {
 
 									fileGrid[r][c] = Double.parseDouble(lineInfo[c]);
-									str += fileGrid[r][c]+ " ";
-
-
-
-								}str += "\n";
-							}
-							System.out.println(str);
+							
+								}
+								
+								if(lineInfo.length != fileRow) {
+									System.out.println(s +"\n" +"INVALID");
+								
+								}
+							
+		
+						}
 							System.out.println(s + "\n" + "VALID");
 
 						}
